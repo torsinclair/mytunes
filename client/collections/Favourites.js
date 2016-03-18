@@ -1,0 +1,5 @@
+var Favourites = Songs.extend({
+  
+
+
+});

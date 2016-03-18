@@ -13,11 +13,14 @@ var LibraryEntryView = Backbone.View.extend({
     'click': function() {
       //this.model.play();
       this.model.enqueue();
+    },
+
+    'dblclick': function() {
+      this.model.addFaves();
     }
   },
 
   render: function() {
-    console.log(this.model.attributes);
     return this.$el.html(this.template(this.model.attributes));
   }
 
