@@ -32,12 +32,27 @@ var AppModel = Backbone.Model.extend({
   loadQueue: function() {
     var lib = this.get('library');
     var queue = this.get('songQueue');
+    var savedQueue = this.parseCookie('queue', '+');
     lib.each(function(song) {
-      for (var i = 0; i < queueData.length; i++) {
-        if (song.get('title') === queueData[i].title) {
-          song.enqueue();
-        }
+      if (savedQueue.indexOf(song.get('title')) !== -1) {
+        song.enqueue();
       }
     });
+  },
+
+  parseCookie: function(key, delimiter) {
+    var cookie = document.cookie;
+
+    var cookieArray = cookie.split('; ');
+    for (var i = 0; i < cookieArray.length; i++) {
+      cookieArray[i] = cookieArray[i].split('=');
+      if (cookieArray[i][0] === key) {
+        var value = cookieArray[i][1];
+      }
+    }
+    if (delimiter) {
+      var valueArray = value.split(delimiter); 
+    }
+    return valueArray;
   } 
 });
